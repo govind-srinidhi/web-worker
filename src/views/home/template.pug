@@ -1,0 +1,41 @@
+//--
+  - It contains template for home page.
+  -/
+v-container.pa-3.ml-2
+  v-row
+    v-col.col-md-3
+      v-text-field(
+        :label  = "$CONSTANTS.LABELS.TIME_OFFSET_LABEL"
+        :hint   = "$CONSTANTS.LABELS.TIME_OFFSET_HINT"
+        suffix  = "ms"
+        v-model = "timeOffset"
+        :rules  = "[rules.required, rules.numeric]"
+        persistent-hint
+      )
+    v-col.col-md-2
+      v-btn.mt-4(
+        color     = "primary lighten-2"
+        @click    = "startWorker()"
+        :disabled = "isWorkerStarted"
+      ) {{ $CONSTANTS.LABELS.START_WORKER_LABEL }}
+    v-col.col-md-6(v-if = "sortingCompleted")
+      .d-block.subtitle-1 
+        span {{ $CONSTANTS.LABELS.SORT_COMPLETION_LABEL }} 
+        span.primary--text {{ timeToSort }}
+      .d-block.subtitle-1 
+        span {{ $CONSTANTS.LABELS.RANDOM_VALUES_GENERATION_LABEL }} 
+        span.primary--text {{ timeToGenerateRandomValues }}
+      .d-block.subtitle-1 
+        span {{ $CONSTANTS.LABELS.AVERAGE_RANDOM_VALUE_PROCESSING_TIME_LABEL }}
+        span.primary--text {{ averageProcessingTimeToAddRandomValue }}
+  v-data-table.elevation-1.mt-4(
+    v-if             = "isWorkerStarted"
+    ref              = "table_results"  
+    item-key         = "value"
+    :items           = "resultsForTable"
+    :headers         = "headersForTable"
+    :no-data-text    = "$TABLES.RESULTS.noDataText"
+    :footer-props    = "footersForTable"
+    :items-per-page  = "$TABLES.RESULTS.itemsPerPage"
+    fixed-header multi-sort
+  )

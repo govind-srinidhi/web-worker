@@ -1,7 +1,7 @@
 # web-worker
 
 - Implemented insertion sort, which sorts a 100K array of random numbers.
-- The sorting happens in the web workers
+- The sorting happens in the web worker
 - Created a UI which triggers the computation by pressing a button.
 - When the button is pressed, an array of 100K random numbers are created and sorting is started in the Web Worker.
 - While sorting continues, the UI thread sends an extra random number to the Web Worker every x ms, where x can be specified in the UI beforehand.
